@@ -37,6 +37,9 @@ public class TrainingManager : MonoBehaviour
     [Header("SendのInputField")]private TMP_InputField sendPortInputField;
     [Header("ReceiveのInputField")]private TMP_InputField receivePortInputField;
     [Header("全体を何回やるか")]private TMP_InputField allTrainingNumInputField;
+
+    [Header("トレーニングボタン")]private TrainingButton[] trainingButtons = new TrainingButton[5];
+    [Header("現在どのトレーニングが行われているか")]private int trainingButtonNum;
     private UdpSender udpSender;
     private UdpReceiver udpReceiver;
     
@@ -81,7 +84,9 @@ public class TrainingManager : MonoBehaviour
 
         selectFileNameText.text = Path.GetFileName(saveManager.GetFolderPath());
 
-        
+        for(int i=0; i<trainingButtons.Length; i++){
+            trainingButtons[i] = settingUIObj.transform.Find("Buttons/Button" + i.ToString()).GetComponent<TrainingButton>();
+        }
 
         FirstSave();
     }
@@ -99,7 +104,7 @@ public class TrainingManager : MonoBehaviour
     /// <param name="trainingName"></param>
     /// <param name="trainingVideoLink"></param>
     /// <param name="maxTrainingCount"></param>
-    public void StartTraining(string trainingName,string trainingVideoLink, float trainingVideoTime,int maxTrainingCount){
+    public void StartTraining(string trainingName,string trainingVideoLink, float trainingVideoTime,int maxTrainingCount,int trainingButtonNum){
         if(sendPortInputField.text == "") {
             Debug.LogWarning("Send Portを指定して下さい");
             warningManager.ShowWarningText("The sending port must be specified.");
@@ -118,6 +123,8 @@ public class TrainingManager : MonoBehaviour
         this.trainingVideoTime = trainingVideoTime;
 
         this.maxTrainingCount = maxTrainingCount;
+
+        this.trainingButtonNum = trainingButtonNum;
 
         trainingTime = 0;
         trainingCount = 0;
@@ -232,7 +239,14 @@ public class TrainingManager : MonoBehaviour
                 Debug.Log((trainingCount + 1) + "回目 : トレーニング終了");
                 trainingTime = 0;
                 trainingUIObj.SetActive(true);
-                trainingCount++;                
+                if(isAllTrain){
+                    trainingButtons[trainOrder[trainingCount]].AddCurrentTrainingNum();
+                }else{
+                    trainingButtons[trainingButtonNum].AddCurrentTrainingNum();
+                }
+                trainingCount++;  
+
+                
 
                 if(trainingCount >= maxTrainingCount){
                     isTraining = false;

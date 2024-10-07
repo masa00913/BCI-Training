@@ -1,14 +1,15 @@
 {
-    "isConcludeTraining": false,
-    "trainingName": "",
-    "trainingCount": 0,
-    "trainingVideoLink": "",
+    "isConcludeTraining": true,
+    "trainingName": "rest",
+    "trainingCount": 11,
+    "trainingVideoLink": "C:\\Users\\masa2\\Downloads\\PXL_20240925_160838167.TS.mp4",
     "canSetTraining": false,
     "trainingColor": {
-        "r": 0.7584905028343201,
-        "g": 0.7584905028343201,
-        "b": 0.7584905028343201,
+        "r": 0.0,
+        "g": 0.0,
+        "b": 1.0,
         "a": 1.0
     },
-    "trainingVideoTime": 0.0
+    "trainingVideoTime": 1.9340274333953858,
+    "currentTrainingNum": 2
 }

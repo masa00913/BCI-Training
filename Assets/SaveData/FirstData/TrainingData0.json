@@ -1,14 +1,15 @@
 {
-    "isConcludeTraining": false,
-    "trainingName": "",
-    "trainingCount": 0,
-    "trainingVideoLink": "",
+    "isConcludeTraining": true,
+    "trainingName": "act",
+    "trainingCount": 2,
+    "trainingVideoLink": "C:\\Users\\masa2\\Downloads\\PXL_20240925_160831259.TS.mp4",
     "canSetTraining": false,
     "trainingColor": {
-        "r": 0.7584905028343201,
-        "g": 0.7584905028343201,
-        "b": 0.7584905028343201,
+        "r": 0.0,
+        "g": 1.0,
+        "b": 0.0,
         "a": 1.0
     },
-    "trainingVideoTime": 0.0
+    "trainingVideoTime": 2.677503824234009,
+    "currentTrainingNum": 3
 }

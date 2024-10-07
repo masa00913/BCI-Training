@@ -16,14 +16,17 @@ public class TrainingButton : MonoBehaviour
     [Header("何回Trainingするか")]private int trainingCount;
     [Header("トレーニングビデオのリンク")]private string trainingVideoLink;
     [Header("トレーニングの時間")]private float trainingVideoTime;
+    [Header("現在の総トレーニング数")]private int currentTrainingNum;
 
     [Header("トレーニング回数のテキストオブジェ")]private TMP_Text trainingCountText;
     [Header("トレーニング回数のテキストオブジェ")]private TMP_Text trainingNameText;
+    [Header("現在の総トレーニング数のテキスト")]private TMP_Text currentTrainingNumText;
+    [Header("トレーニングのUIが入ったオブジェクト")]private GameObject trainingUIs;
     [Header("ごみ箱アイコンのオブジェ")]private GameObject trashObj;
     [Header("トレインボタンのオブジェ")]private GameObject trainObj;
+    [Header("現在の総トレーニング数が入っているオブジェクト")]private GameObject currentTrainingNumObj;
     [Header("トレーニングを設定するボタン")]private Button trainingNameButton;
     private Image trainingColor;
-    private Color[] colors = new Color[5];
 
     [Header("トレーニングを設定するパネルのオブジェ")]private TrainingSettingPanel trainingSettingPanel;
 
@@ -31,6 +34,8 @@ public class TrainingButton : MonoBehaviour
     private SettingManager settingManager;
     private SaveManager saveManager;
     private bool canSetTraining;
+
+     
 
     
 
@@ -43,11 +48,13 @@ public class TrainingButton : MonoBehaviour
     void Awake()
     {
         trainingNameText = transform.Find("TrainingNameButton/TrainingNameText").GetComponent<TMP_Text>();
-        
         trainingCountText = transform.Find("TrainingCount").GetComponent<TMP_Text>();
+        trainingUIs = transform.Find("TrainingUIs").gameObject;
+        currentTrainingNumText = trainingUIs.transform.Find("CurrentTrainingNumBox/CurrentTrainingNum").GetComponent<TMP_Text>();
         
-        trashObj = transform.Find("TrashButton").gameObject;
-        trainObj = transform.Find("TrainButton").gameObject;
+        currentTrainingNumObj = trainingUIs.transform.Find("CurrentTrainingNumBox").gameObject;
+        trashObj = trainingUIs.transform.Find("TrashButton").gameObject;
+        trainObj = trainingUIs.transform.Find("TrainButton").gameObject;
         trainingSettingPanel = GameObject.Find("Canvas/Setting").transform.Find("TrainingSettingObj").GetComponent<TrainingSettingPanel>();
 
         trainingManager = GameObject.Find("TrainingManager").GetComponent<TrainingManager>();
@@ -55,6 +62,7 @@ public class TrainingButton : MonoBehaviour
 
         trainingNameButton = transform.Find("TrainingNameButton").GetComponent<Button>();
         trainingColor = transform.Find("TrainingColor").GetComponent<Image>();
+        
 
         saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
         
@@ -70,8 +78,15 @@ public class TrainingButton : MonoBehaviour
        
     }
 
+    public void AddCurrentTrainingNum(){
+        this.currentTrainingNum++;
+        currentTrainingNumText.text = currentTrainingNum.ToString();
+        Save();
+    }
+
     /// <summary>
     /// トレーニングを設定できるか設定
+    /// 
     /// </summary>
     /// <param name="canSetTraining"></param>
     public void SetCanSetTraining(bool canSetTraining){
@@ -134,10 +149,10 @@ public class TrainingButton : MonoBehaviour
         this.trainingCount = int.Parse(trainingCount);
         this.trainingCountText.text = trainingCount;
         this.trainingCountText.gameObject.SetActive(true);
-        this.trainObj.SetActive(true);
-        this.trashObj.SetActive(true);
+        
         this.trainingVideoLink = trainingVideoLink;
-
+        this.currentTrainingNum = 0;
+        trainingUIs.SetActive(true);
         Save();
     }
 
@@ -164,12 +179,12 @@ public class TrainingButton : MonoBehaviour
         this.trainingCount = trainingButton.GetTrainingCount();
         this.trainingCountText.text = this.trainingCount.ToString();
         this.trainingCountText.gameObject.SetActive(true);
-        this.trainObj.SetActive(true);
-        this.trashObj.SetActive(true);
+        trainingUIs.SetActive(true);
         this.trainingVideoLink = trainingButton.GetTrainingVideoLink();
         this.trainingColor.color = trainingButton.GetTrainingColor();
         this.trainingVideoTime = trainingButton.GetTrainingVideoTime();
-
+        this.currentTrainingNum = trainingButton.GetCurrentTrainingNum();
+        this.currentTrainingNumText.text = this.currentTrainingNum.ToString();
         Save();
     }
 
@@ -180,6 +195,8 @@ public class TrainingButton : MonoBehaviour
     public void SetTrainingColor(Color color){
         trainingColor.color = color;
     }
+
+    
 
     public string GetTrainingName(){
         return trainingName;
@@ -196,6 +213,10 @@ public class TrainingButton : MonoBehaviour
     public Color GetTrainingColor(){
         return trainingColor.color;
 
+    }
+
+    public int GetCurrentTrainingNum(){
+        return currentTrainingNum;
     }
 
     /// <summary>
@@ -223,13 +244,19 @@ public class TrainingButton : MonoBehaviour
         Save();
     }
 
+    public void OnClickResetButton(){
+        currentTrainingNum = 0;
+        currentTrainingNumText.text = "0";
+    }
+
     public void DeleteInfo(){
         isConcludeTraining = false;
         trainingName = "None";
-        trashObj.SetActive(false);
-        trainObj.SetActive(false);
+        currentTrainingNum = 0;
+        currentTrainingNumText.text = "0";
         this.trainingNameText.text = trainingName;
-        
+        trainingUIs.SetActive(false);
+
         trainingColor.color = Color.gray;
 
         Save();
@@ -240,7 +267,7 @@ public class TrainingButton : MonoBehaviour
     /// トレインボタンを押したときの処理
     /// </summary>
     public void OnClickTrainButton(){
-        trainingManager.StartTraining(trainingName, trainingVideoLink, trainingVideoTime,trainingCount);
+        trainingManager.StartTraining(trainingName, trainingVideoLink, trainingVideoTime,trainingCount,trainingNum);
     }
 
     public void ResetInfo(){
@@ -278,6 +305,7 @@ public class TrainingButton : MonoBehaviour
         this.canSetTraining = saveData.canSetTraining;
         trainingColor.color = saveData.trainingColor;
         this.trainingVideoTime = saveData.trainingVideoTime;
+        currentTrainingNum = saveData.currentTrainingNum;
         UpdateData();
     }
 
@@ -289,14 +317,12 @@ public class TrainingButton : MonoBehaviour
         if(isConcludeTraining){
             this.trainingNameText.text = trainingName;
             this.trainingCountText.text = trainingCount.ToString();
-            this.trainObj.SetActive(true);
-            this.trashObj.SetActive(true);
-            
+            this.currentTrainingNumText.text = currentTrainingNum.ToString();
+            trainingUIs.SetActive(true);
         }else{
             this.trainingNameText.text = "None";
             this.trainingCountText.text = "+";
-            this.trainObj.SetActive(false);
-            this.trashObj.SetActive(false);
+            trainingUIs.SetActive(false);
             trainingColor.color = Color.gray;
         }
 
@@ -314,6 +340,7 @@ public class TrainingButton : MonoBehaviour
         saveData.canSetTraining = this.canSetTraining;
         saveData.trainingColor = trainingColor.color;
         saveData.trainingVideoTime = trainingVideoTime;
+        saveData.currentTrainingNum = currentTrainingNum;
         string json = JsonUtility.ToJson(saveData,true);                 // jsonとして変換
         StreamWriter wr = new StreamWriter(filePath, false);    // ファイル書き込み指定
         wr.WriteLine(json);                                     // json変換した情報を書き込み
@@ -340,5 +367,6 @@ public class TrainingButton : MonoBehaviour
         [Header("トレーニングを設定できるか")]public bool canSetTraining;
         [Header("トレーニングカラー")]public Color trainingColor;
         [Header("トレーニングビデオの長さ")]public float trainingVideoTime;
+        [Header("現在の総トレーニング数")]public int currentTrainingNum;
     }
 }
