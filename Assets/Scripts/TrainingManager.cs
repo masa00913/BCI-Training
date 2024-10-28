@@ -216,9 +216,12 @@ public class TrainingManager : MonoBehaviour
         trainingTime += Time.deltaTime;
         if(trainingTime < restTime){
             //安静
+            videoPlayer.Play();
+            videoPlayer.Pause();
         }else if(trainingTime < restTime + instituteTime){
             //指示
             trainingNameText.gameObject.SetActive(true);
+            
         }else if(trainingTime < restTime + instituteTime + signTime){
             //合図
             trainingNameText.gameObject.SetActive(false);
@@ -229,7 +232,7 @@ public class TrainingManager : MonoBehaviour
                 //最初の処理
                 Debug.Log((trainingCount + 1) + "回目 : トレーニング開始");
                 Debug.Log(trainingVideoTime + "秒継続");
-                //udpSender.SendMessages(trainingNameText.text);
+                udpSender.SendMessages(trainingNameText.text);
             }
             trainingUIObj.SetActive(false);
             reticleObj.SetActive(false);
