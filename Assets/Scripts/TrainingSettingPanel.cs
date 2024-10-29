@@ -41,7 +41,10 @@ public class TrainingSettingPanel : MonoBehaviour
     }
     public void OpenFile()
     {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Open File", "", "mp4", false);
+        var extensions = new[] {
+            new ExtensionFilter("Video Files", "mp4", "mov")
+        };
+        var paths = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, false);
         if (paths.Length > 0)
         {
             string filePath = paths[0];

@@ -58,6 +58,8 @@ public class TrainingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(Application.dataPath);
+
         videoPlayer = GameObject.Find("VideoPlayer").GetComponent<VideoPlayer>();
         videoPlayer.loopPointReached += LoopPointReached;
         
@@ -240,6 +242,7 @@ public class TrainingManager : MonoBehaviour
             if(trainingTime >= restTime + instituteTime + signTime + trainingVideoTime){
                 //トレーニング動画が終わった時
                 Debug.Log((trainingCount + 1) + "回目 : トレーニング終了");
+                udpSender.SendMessages(trainingNameText.text + "終了");
                 trainingTime = 0;
                 trainingUIObj.SetActive(true);
                 if(isAllTrain){

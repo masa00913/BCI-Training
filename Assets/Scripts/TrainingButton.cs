@@ -341,7 +341,8 @@ public class TrainingButton : MonoBehaviour
         saveData.trainingColor = trainingColor.color;
         saveData.trainingVideoTime = trainingVideoTime;
         saveData.currentTrainingNum = currentTrainingNum;
-        string json = JsonUtility.ToJson(saveData,true);                 // jsonとして変換
+        string json = JsonUtility.ToJson(saveData,true);  
+        Debug.Log(filePath);               // jsonとして変換
         StreamWriter wr = new StreamWriter(filePath, false);    // ファイル書き込み指定
         wr.WriteLine(json);                                     // json変換した情報を書き込み
         wr.Flush();                                  

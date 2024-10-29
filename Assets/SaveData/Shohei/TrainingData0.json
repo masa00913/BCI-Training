@@ -1,8 +1,8 @@
 {
     "isConcludeTraining": true,
-    "trainingName": "masa1",
+    "trainingName": "test",
     "trainingCount": 1,
-    "trainingVideoLink": "C:\\Users\\masa2\\Downloads\\SeaSOund.mp4",
+    "trainingVideoLink": "C:\\Users\\keita\\Documents\\shohei\\n03590841.mov",
     "canSetTraining": false,
     "trainingColor": {
         "r": 0.0,
@@ -10,6 +10,6 @@
         "b": 1.0,
         "a": 1.0
     },
-    "trainingVideoTime": 9.087050437927246,
-    "currentTrainingNum": 3
+    "trainingVideoTime": 100.0,
+    "currentTrainingNum": 0
 }
