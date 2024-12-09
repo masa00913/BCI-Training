@@ -24,8 +24,25 @@ public class SaveManager : MonoBehaviour
     private void Awake() {
         if (instance == null)
         {
-            Debug.Log("こっち");
-            folderPath = Application.dataPath + "/SaveData/FirstData";
+            // ビルドフォルダのルートを取得
+            string buildFolderPath = Path.GetDirectoryName(Application.dataPath);
+            // 相対パスを結合
+            folderPath = Path.Combine(buildFolderPath, "SaveData/FirstData");
+
+            // フォルダが存在しない場合は作成
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                Debug.Log($"Folder created at: {folderPath}");
+            }
+            else
+            {
+                Debug.Log($"Folder already exists at: {folderPath}");
+            }
+
+            // folderPath = Application.persistentDataPath + "/SaveData/FirstData";
+
+            Debug.Log("フォルダパスは" + folderPath);
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -69,11 +86,27 @@ public class SaveManager : MonoBehaviour
 
     public void FirstSave(){
         fileName =  "SaveManager" + ".json";
-        filePath = Application.dataPath + "/SaveData/"  + fileName;
+        // ビルドフォルダのルートを取得
+        string buildFolderPath = Path.GetDirectoryName(Application.dataPath);
+
+        // フォルダが存在しない場合は作成
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            Debug.Log($"Folder created at: {folderPath}");
+        }
+        else
+        {
+            Debug.Log($"Folder already exists at: {folderPath}");
+        }
+
+        Debug.Log("ビルドフォルダは" + buildFolderPath);
+        filePath = buildFolderPath + "/SaveData/"  + fileName;
         Debug.Log(filePath);
         saveData = new SaveData();
         // ファイルがないとき、ファイル作成
         if (!File.Exists(filePath)) {
+            Debug.Log("フォルダ作成");
             Save();
         }
 

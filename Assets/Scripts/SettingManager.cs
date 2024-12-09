@@ -189,27 +189,32 @@ public class SettingManager : MonoBehaviour
     }
 
     public void OnClickSelectFileButton(){
-        var saveDataFolder = Application.dataPath + "/SaveData";
-        var paths = StandaloneFileBrowser.OpenFolderPanel("Select Folder", saveDataFolder,false);
-        
+        var saveDataFolder = Path.GetDirectoryName(Application.dataPath) + "/SaveData";
+        saveDataFolder = saveDataFolder.Replace("\\", "/").TrimEnd('/');
+        var paths = StandaloneFileBrowser.OpenFolderPanel("Select Folder", saveDataFolder, false);
+
         if (paths.Length > 0)
         {
-
             string folderPath = paths[0];
-            folderPath = folderPath.Replace("\\","/");
-            if (folderPath.StartsWith(saveDataFolder + "/"))
+            folderPath = folderPath.Replace("\\", "/").TrimEnd('/');
+
+            Debug.Log($"folderPath: '{folderPath}'");
+            Debug.Log($"saveDataFolder: '{saveDataFolder}'");
+
+            if (folderPath.StartsWith(saveDataFolder, System.StringComparison.OrdinalIgnoreCase))
             {
-                // ここでフォルダ内の操作を行う
+                // フォルダ内の操作を行う
                 saveManager.ChangeFolder(folderPath);
             }
             else
             {
                 Debug.LogWarning("指定されたフォルダの外です。ルートフォルダ内のフォルダを選択してください。");
-                warningManager.ShowWarningText("Outside of the SaveData folder; select the folder in the SaveFolder.");
-                // 必要に応じて警告メッセージをユーザーに表示
+                Debug.LogWarning($"フォルダパス: '{folderPath}'");
+                Debug.LogWarning($"saveDataFolder: '{saveDataFolder}'");
+                warningManager.ShowWarningText("Outside of the SaveData folder; select the folder in the SaveFolder. You have to select under " + saveDataFolder);
             }
-            
         }
+
     }
 
     public void FirstSave(){

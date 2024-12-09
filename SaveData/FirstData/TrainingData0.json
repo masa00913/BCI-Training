@@ -3,7 +3,7 @@
     "trainingName": "",
     "trainingCount": 0,
     "trainingVideoLink": "",
-    "canSetTraining": false,
+    "canSetTraining": true,
     "trainingColor": {
         "r": 0.7584905028343201,
         "g": 0.7584905028343201,
