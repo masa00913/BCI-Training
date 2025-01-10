@@ -2,6 +2,9 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+Noto_Sans_JP/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
