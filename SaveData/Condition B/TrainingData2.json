@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": true,
+    "trainingName": "ぴかぴか",
+    "trainingCount": 1,
+    "trainingVideoLink": "C:\\Users\\keita\\Documents\\LLEOO\\BCIxDTraining\\Training Movie\\Magic_visual\\magic_visual_thunder.mp4",
+    "canSetTraining": false,
+    "trainingColor": {
+        "r": 1.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "trainingVideoTime": 11.044366836547852,
+    "currentTrainingNum": 20
+}

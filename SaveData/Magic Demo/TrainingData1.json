@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": true,
+    "trainingName": "雷魔法",
+    "trainingCount": 1,
+    "trainingVideoLink": "C:\\Users\\keita\\Documents\\LLEOO\\BCIxDTraining\\Training Movie\\Magic\\Thunder.mp4",
+    "canSetTraining": false,
+    "trainingColor": {
+        "r": 0.0,
+        "g": 1.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "trainingVideoTime": 7.507500171661377,
+    "currentTrainingNum": 13
+}

@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": true,
+    "trainingName": "炎魔法",
+    "trainingCount": 1,
+    "trainingVideoLink": "C:\\Users\\keita\\Documents\\LLEOO\\BCIxDTraining\\Training Movie\\Magic\\FIreBall.mp4",
+    "canSetTraining": false,
+    "trainingColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "trainingVideoTime": 8.041366577148438,
+    "currentTrainingNum": 13
+}

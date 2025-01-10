@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": true,
+    "trainingName": "安静",
+    "trainingCount": 1,
+    "trainingVideoLink": "C:\\Users\\keita\\Documents\\LLEOO\\BCIxDTraining\\Training Movie\\Magic_visual\\magic_visual_neutral.mp4",
+    "canSetTraining": false,
+    "trainingColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "trainingVideoTime": 11.044366836547852,
+    "currentTrainingNum": 20
+}

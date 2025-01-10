@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": false,
+    "trainingName": "",
+    "trainingCount": 0,
+    "trainingVideoLink": "",
+    "canSetTraining": false,
+    "trainingColor": {
+        "r": 0.7584905028343201,
+        "g": 0.7584905028343201,
+        "b": 0.7584905028343201,
+        "a": 1.0
+    },
+    "trainingVideoTime": 0.0,
+    "currentTrainingNum": 0
+}

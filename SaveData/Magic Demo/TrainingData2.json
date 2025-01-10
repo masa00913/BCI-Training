@@ -1,0 +1,15 @@
+{
+    "isConcludeTraining": false,
+    "trainingName": "None",
+    "trainingCount": 1,
+    "trainingVideoLink": "C:\\Users\\keita\\Downloads\\Thunder.mp4",
+    "canSetTraining": true,
+    "trainingColor": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5,
+        "a": 1.0
+    },
+    "trainingVideoTime": 7.507500171661377,
+    "currentTrainingNum": 0
+}
